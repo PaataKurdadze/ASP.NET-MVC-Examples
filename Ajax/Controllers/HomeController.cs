@@ -34,5 +34,17 @@ namespace Ajax.Controllers
       return Json(id, JsonRequestBehavior.AllowGet);
     }
 
+    [HttpPost]
+    public JsonResult Delete(int id)
+    {
+      MydbDataContext db = new MydbDataContext();
+
+      db.students.DeleteOnSubmit(db.students.Where(x => x.Id == id).FirstOrDefault());
+      db.SubmitChanges();
+
+      return Json(true, JsonRequestBehavior.AllowGet);
+    }
+
+
   }
 }

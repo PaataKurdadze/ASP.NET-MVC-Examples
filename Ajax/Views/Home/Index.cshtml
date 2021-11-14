@@ -107,7 +107,7 @@
         type: 'POST',
         data: { 'name': name, 'surname': surname, 'age': age, 'email': email },
         success: function (id) {
-          var raw = "<tr><td>" + id + "</td><td>" + name + "</td><td>" + surname + "</td><td> " + age + " </td><td> " + email + " </td><td> </td></tr>";        
+          var raw = "<tr><td>" + id + "</td><td>" + name + "</td><td>" + surname + "</td><td> " + age + " </td><td> " + email + " </td><td> <button class=\"btn alert-danger del\">წაშლა</button> </td></tr>";
           $('.table tr:last').after(raw);
 
           $('#name').val('');
@@ -122,9 +122,19 @@
   });
 
 
-  $('.del').click(function () {
-    var id = $(this).closest('tr').find('td:first').html();
-    alert(id);
+  $('.table').on("click",".del", function () {
+
+    var tr = $((this).closest('tr'));
+    var id = tr.find('td:first').html();
+
+    $.ajax({
+      url: 'Home/Delete',
+      type: 'POST',
+      data: { 'id': id },
+      success: function () {
+        tr.hide();
+      }
+    });
   });
   
 
