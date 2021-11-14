@@ -1,0 +1,71 @@
+﻿
+@{
+  ViewBag.Title = "Index";
+}
+
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<div class="jumbotron" id="loginform" style="width: 400px;">
+  <div class="from-group">
+    <input class="form-control" id="name" type="text" placeholder="სახელი" />
+  </div>
+  <div class="from-group">
+    <input class="form-control" id="surname" type="text" placeholder="გვარი" />
+  </div>
+  <button class="btn btn-success" id="login">შესვლა</button>
+</div>
+
+<p id="message"></p>
+
+
+<script>
+  $(document).ready(function () {
+
+    $('#login').click(function () {
+
+      var n = $('#name').val();
+      var s = $('#surname').val();
+
+      $.ajax({
+        url: "/Home/Index",
+        type: 'POST',
+        data: { 'name': n, 'surname': s },
+        success: function (response) {
+          if (response == "fail") {
+            $('#message').html("ასეთ მომხმარებელი არ არსებობს!");
+            $('#message').addClass("red");
+            $('#name').addClass("error");
+            $('#surname').addClass("error");
+          }
+          else if (response == true) {
+            window.location.href = "/Home/About";
+
+            //alert("success!");
+            //$('#name').removeClass("error");
+            //$('#surname').removeClass("error");
+          }
+          else {
+            alert("error");
+          }
+        }
+
+      });
+
+    });
+  });
+    
+  
+</script>
+
+
+<style>
+  .red{
+    color: red;
+    font-size: 12px;
+    margin-top: auto;
+  }
+  .error{
+    border: 1px solid red;
+  }
+</style>
