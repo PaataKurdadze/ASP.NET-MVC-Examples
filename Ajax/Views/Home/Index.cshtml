@@ -55,6 +55,8 @@
         @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
         @Html.ActionLink("Details", "Details", new { id=item.Id }) |
         @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+
+        <button class="btn alert-danger del">წაშლა</button>
       </td>
     </tr>
   }
@@ -82,6 +84,7 @@
 
 @*Jquery  & Ajax*@
 <script>
+
   $(document).ready(function () {
 
     $('#addform').hide();
@@ -105,7 +108,7 @@
         data: { 'name': name, 'surname': surname, 'age': age, 'email': email },
         success: function (id) {
           var raw = "<tr><td>" + id + "</td><td>" + name + "</td><td>" + surname + "</td><td> " + age + " </td><td> " + email + " </td><td> </td></tr>";        
-          $('table tr:last').after("<tr><td>" + id + "</td><td>" + name + "</td><td>" + surname + "</td><td> " + age + " </td><td> " + email + " </td><td> </td></tr>");
+          $('.table tr:last').after(raw);
 
           $('#name').val('');
           $('#surname').val('');
@@ -117,4 +120,12 @@
     });
 
   });
+
+
+  $('.del').click(function () {
+    var id = $(this).closest('tr').find('td:first').html();
+    alert(id);
+  });
+  
+
 </script>
