@@ -53,8 +53,8 @@
       </td>
       <td>
         @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-          @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-          @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+        @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
       </td>
     </tr>
   }
@@ -103,10 +103,17 @@
         url: '/Home/Index',
         type: 'POST',
         data: { 'name': name, 'surname': surname, 'age': age, 'email': email },
-        success: function () {
-          alert("success");
+        success: function (id) {
+          var raw = "<tr><td>" + id + "</td><td>" + name + "</td><td>" + surname + "</td><td> " + age + " </td><td> " + email + " </td><td> </td></tr>";        
+          $('table tr:last').after("<tr><td>" + id + "</td><td>" + name + "</td><td>" + surname + "</td><td> " + age + " </td><td> " + email + " </td><td> </td></tr>");
+
+          $('#name').val('');
+          $('#surname').val('');
+          $('#age').val('');
+          $('#email').val('');         
         }
       });
+
     });
 
   });

@@ -15,7 +15,7 @@ namespace Ajax.Controllers
     }
 
     [HttpPost]
-    public JsonResult Index(string name, string surname, string email, int age)
+    public JsonResult Index(string name, string surname, int age, string email)
     {
       student s = new student()
       {
@@ -29,8 +29,9 @@ namespace Ajax.Controllers
       db.students.InsertOnSubmit(s);
       db.SubmitChanges();
 
+      int id = db.students.OrderByDescending(x => x.Id).Select(x => x.Id).FirstOrDefault();
 
-      return Json(true, JsonRequestBehavior.AllowGet);
+      return Json(id, JsonRequestBehavior.AllowGet);
     }
 
   }
