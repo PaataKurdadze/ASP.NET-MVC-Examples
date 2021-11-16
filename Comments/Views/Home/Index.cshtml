@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Comments.Models.comment>
+
+@{
+  ViewBag.Title = "Index";
+}
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<div class="col-md-4 col-md-offset-4" style="background-color: #808080; margin-top:20px; height: auto;">
+  <div style="margin-top:20px;">
+    <img src="https://gameshop.ge/wp-content/uploads/2021/06/EGS_Battlefield2042_DICE_S1_2560x1440-36f16374c9c29a18a46872795b483d72-scaled.jpg" class="img-thumbnail margin" />
+  </div>
+  <textarea class="form-control margin" rows="4" id="comment"></textarea>
+  <button class="btn btn-default margin" id="submit">დააკომენტარე</button>
+
+  <div id="commentbox" class="margin">
+    @foreach (var item in Model)
+    {
+      <div id="@item.ID" class="border margin com">@item.Comment1</div>
+    }
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(function () {
+
+    $('#submit').click(function () {
+
+      $.ajax({
+        url: 'Home/Add',
+        type: 'POST',
+        data: { 'text': $('#comment').val() },
+        success: function (response) {
+          if (response == true) {
+            $('#commentbox').prepend("<div class=\"border margin com\">" + $('#comment').val() + "</div>");
+            $('#comment').val('');
+          }
+        }
+      });
+    });
+
+    $('.com').click(function () {
+      $(this).hide();
+    });
+
+  });
+</script>
+
+
+
+
+<style>
+  .margin{
+    height: auto;
+    margin-block-end: 20px;
+  }
+
+  .border {
+    background-color: white;
+    border-color: white;
+    border-style: solid;
+    border-width: 5px 5px;
+    border-radius: 5px;
+    text-indent: 10px;
+  }
+</style>
