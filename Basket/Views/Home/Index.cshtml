@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Basket.Models.product_new>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<h4 style="margin-top: 20px; float: right;">
+  კალათა:
+  <span class="label label-danger">Danger Label</span>
+</h4>
+
+<div class="panel panel-default" style="clear: both;">
+  @foreach (var item in Model)
+  {
+    <div class="margin product-view" id="@item.Id">
+      <div class="name panel-heading">Store: @item.Store</div>
+      <div class="name panel-body">Product: @item.Name</div>
+      <div class="name price panel-footer">
+        Price:
+        <span style="color: orangered;" class="price">
+          @item.Price.ToString("0.00")
+         </span>₾                       @*("#.##")*@
+      </div>
+      <button class="btn btn-success btn-sm" style="float: right; margin: 10px;">ყიდვა</button>
+    </div>
+  }
+</div>
+
+<style>
+  .margin {
+    height: auto;
+    margin-top: 40px;
+    margin-left: 40px;
+    float: left;
+    outline: 1px solid #29Abe2;
+  }
+</style>
+
+
+<script>
+  $(document).ready(function () {
+
+    $('.btn').click(function () {
+      var id = $(this).closest('.product-view').attr('id');  //.product-view -ს მაგივარად div-იც შეიძლებოდა
+      var price = $(this).siblings('.price').children('.price').html();
+      alert(price)
+      $.ajax({
+
+      });
+
+    });
+
+
+  });
+</script>
